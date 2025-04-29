@@ -21,8 +21,8 @@ public class CustomerController {
         return ResponseEntity.status(200).body(customerService.getCustomer(user.getId()));
     }
     @PostMapping("/add")
-    public ResponseEntity addCustomer(@AuthenticationPrincipal User user, @RequestBody @Valid CustomerDTO  customerDTO ){
-        customerService.addCustomer(user.getId(),customerDTO);
+    public ResponseEntity addCustomer( @RequestBody @Valid User user, @RequestBody @Valid CustomerDTO  customerDTO ){
+        customerService.addCustomer(user,customerDTO);
         return ResponseEntity.status(200).body(new ApiResponse("Success") );
     }
     @PutMapping("/update/{customer_id}")
