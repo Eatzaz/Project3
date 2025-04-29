@@ -11,6 +11,7 @@ public class CustomerDTO {
     @NotEmpty(message = "Phone Number Can't be Empty")
     @Pattern(regexp = "^05\\d{8}$")
     private String phoneNumber;
+        private Integer id;
     private String username;
     @NotEmpty(message = "password Can't Empty")
     private String password;
