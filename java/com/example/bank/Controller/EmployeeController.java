@@ -21,8 +21,8 @@ public class EmployeeController {
         return ResponseEntity.status(200).body(employeeService.getEmployee(user.getId()));
     }
     @PostMapping("/add")
-    public ResponseEntity addEmployee(@AuthenticationPrincipal User user, @RequestBody @Valid EmployeeDTO employeeDTO){
-        employeeService.addEmployee(user.getId(),employeeDTO);
+    public ResponseEntity addEmployee( @RequestBody @Valid User user, @RequestBody @Valid EmployeeDTO employeeDTO){
+        employeeService.addEmployee(user,employeeDTO);
         return ResponseEntity.status(200).body(new ApiResponse("Success") );
     }
     @PutMapping("/update/{employee_id}")
