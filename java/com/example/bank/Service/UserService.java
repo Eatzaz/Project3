@@ -18,12 +18,6 @@ public class UserService {
     public List<User> getAllUser(){
         return userRepository.findAll();
     }
-    public void registration(User user){
-//        user.setRole("CUSTOMER");
-        String hashPassword=new BCryptPasswordEncoder().encode(user.getPassword());//اشفر الباسوورد
-        user.setPassword(hashPassword);
-        userRepository.save(user);
-    }
     public void updateUser(Integer idUser,User user){
         User user1=userRepository.findUserById(idUser);
         if(user1==null){
