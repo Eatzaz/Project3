@@ -31,15 +31,14 @@ private final MyUserDetailsService myUserDetailsService;
                 .authenticationProvider(daoAuthenticationProvider()) // جايه من فوق
                 .authorizeHttpRequests()// حددت من له الصلاحيه
                 .requestMatchers("api/v1/user/get").hasAuthority("ADMIN")
-                .requestMatchers("api/v1/user/add").permitAll()
                 .requestMatchers("api/v1/user/update/{idUser}").hasAuthority("USER")
                 .requestMatchers("api/v1/user/delete/{idUser}").hasAuthority("USER")
                 .requestMatchers("api/v1/customer/get").hasAnyAuthority("ADMIN","CUSTOMER")
-                .requestMatchers("api/v1/customer/add").hasAuthority("CUSTOMER")
+                .requestMatchers("api/v1/customer/add").permitAll()
                 .requestMatchers("api/v1/customer/update/{customer_id}").hasAuthority("CUSTOMER")
                 .requestMatchers("api/v1/customer/delete/{customer_id}").hasAuthority("CUSTOMER")
                 .requestMatchers("api/v1/employee/get").hasAnyAuthority("ADMIN","EMPLOYEE")
-                .requestMatchers("api/v1/employee/add").hasAuthority("EMPLOYEE")
+                .requestMatchers("api/v1/employee/add").permitAll()
                 .requestMatchers("api/v1/employee/update/{employee_id}").hasAuthority("EMPLOYEE")
                 .requestMatchers("api/v1/employee/delete/{employee_id}").hasAuthority("EMPLOYEE")
                 .requestMatchers("api/v1/account/get").hasAuthority("CUSTOMER")
