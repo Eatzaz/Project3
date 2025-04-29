@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class EmployeeDTO {
-    private Integer user_id;
     @NotEmpty(message = "position Can't be Empty")
     private String position;
     @NotNull(message = "salary Can't be null")
@@ -27,5 +26,4 @@ public class EmployeeDTO {
     @NotEmpty(message = "Role Can't Empty")
     @Pattern(regexp = "CUSTOMER|EMPLOYEE|ADMIN")
     private String role;
-
 }
