@@ -29,7 +29,7 @@ public class EmployeeService {
        user.setRole("EMPLOYEE");
         String hashPassword=new BCryptPasswordEncoder().encode(user.getPassword());//اشفر الباسوورد
         user.setPassword(hashPassword);
-         Employee employee=new Employee(null,employeeDTO.getPosition(),employeeDTO.getSalary(),employeeDTO.getUsername,employeeDTO.getPassword,employeeDTO.getName,employeeDTO.getEmail,employeeDTO.getRole,user);
+         Employee employee=new Employee(null,employeeDTO.getPosition(),employeeDTO.getSalary(),employeeDTO.getUsername(),employeeDTO.getPassword(),employeeDTO.getName(),employeeDTO.getEmail(),employeeDTO.getRole(),user);
          employeeRepository.save(employee);
         userRepository.save(user);
     }
