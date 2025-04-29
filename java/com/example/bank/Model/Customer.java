@@ -21,6 +21,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotEmpty(message = "Phone Number Can't be Empty")
+    @Pattern(regexp = "^05\\d{8}$")
     private String phoneNumber;
     @OneToOne
     @JsonIgnore
