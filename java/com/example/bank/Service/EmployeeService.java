@@ -24,19 +24,14 @@ public class EmployeeService {
         }
         return employeeRepository.findEmployeeByUser(user);
     }
-     public void registration(User user,EmployeeDTO employeeDTO){
+    public void registration(EmployeeDTO employeeDTO){
+         User user=userRepository.findUserById(employeeDTO.getId());
        user.setRole("EMPLOYEE");
         String hashPassword=new BCryptPasswordEncoder().encode(user.getPassword());//اشفر الباسوورد
         user.setPassword(hashPassword);
-        userRepository.save(user);
-    }
-    // public void addEmployee(Integer user_id, EmployeeDTO employeeDTO){
-    //     User user=userRepository.findUserById(user_id);
-    //     if(user==null){
-    //         throw new ApiException("Employee Not Found");
-    //     }
-        Employee employee=new Employee(null,employeeDTO.getPosition(),employeeDTO.getSalary(),user);
+         Employee employee=new Employee(null,employeeDTO.getPosition(),employeeDTO.getSalary(),employeeDTO.getUsername,employeeDTO.getPassword,employeeDTO.getName,employeeDTO.getEmail,employeeDTO.getRole,user);
          employeeRepository.save(employee);
+        userRepository.save(user);
     }
     public void update(Integer user_id, Integer employee_id, EmployeeDTO employeeDTO){
         User user=userRepository.findUserById(user_id);
