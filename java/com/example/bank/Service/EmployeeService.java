@@ -24,7 +24,7 @@ public class EmployeeService {
         }
         return employeeRepository.findEmployeeByUser(user);
     }
-     public void registration(User user){
+     public void registration(User user,EmployeeDTO employeeDTO){
        user.setRole("EMPLOYEE");
         String hashPassword=new BCryptPasswordEncoder().encode(user.getPassword());//اشفر الباسوورد
         user.setPassword(hashPassword);
