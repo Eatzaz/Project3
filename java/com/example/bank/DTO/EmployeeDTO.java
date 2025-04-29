@@ -14,6 +14,7 @@ public class EmployeeDTO {
     @NotNull(message = "salary Can't be null")
     @Positive
     private Double salary;
+    private Integer id;
      private String username;
     @NotEmpty(message = "password Can't Empty")
     private String password;
