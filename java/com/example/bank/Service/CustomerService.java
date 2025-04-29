@@ -25,9 +25,10 @@ public class CustomerService {
 return customerRepository.findCustomerByUser(user);
     }
     public void addCustomer(User user,CustomerDTO customerDTO){
-User user=userRepository.findUserById(user_id);
-if(user==null){
-    throw new ApiException("user Not Found");
+ user.setRole("CUSTOMER");
+        String hashPassword=new BCryptPasswordEncoder().encode(user.getPassword());//اشفر الباسوورد
+        user.setPassword(hashPassword);
+        userRepository.save(user);
 }
 Customer customer1=new Customer(null, customerDTO.getPhoneNumber(),user,null);
 customerRepository.save(customer1);
