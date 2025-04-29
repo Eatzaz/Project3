@@ -24,15 +24,15 @@ public class CustomerService {
         }
 return customerRepository.findCustomerByUser(user);
     }
-    public void addCustomer(User user,CustomerDTO customerDTO){
- user.setRole("CUSTOMER");
+     public void registration(CustomerDTO customerDTO){
+        User user=userRepository.findUserById(customerDTO.getId());
+        user.setRole("CUSTOMER");
         String hashPassword=new BCryptPasswordEncoder().encode(user.getPassword());//اشفر الباسوورد
         user.setPassword(hashPassword);
+        Customer customer=new Customer(null, customerDTO.getPhoneNumber(),customerDTO.getUsername(),customerDTO.getPassword(),customerDTO.getName(),customerDTO.getEmail(),customerDTO.getRole(),user,null);
+        customerRepository.save(customer);
         userRepository.save(user);
 }
-Customer customer1=new Customer(null, customerDTO.getPhoneNumber(),user,null);
-customerRepository.save(customer1);
-    }
     public void update(Integer user_id,Integer customer_id,CustomerDTO customerDTO){
         User user=userRepository.findUserById(user_id);
         Customer customer=customerRepository.findCustomerById(customer_id);
