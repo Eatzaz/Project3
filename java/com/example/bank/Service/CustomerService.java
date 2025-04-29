@@ -24,7 +24,7 @@ public class CustomerService {
         }
 return customerRepository.findCustomerByUser(user);
     }
-    public void addCustomer(Integer user_id,CustomerDTO customerDTO){
+    public void addCustomer(User user,CustomerDTO customerDTO){
 User user=userRepository.findUserById(user_id);
 if(user==null){
     throw new ApiException("user Not Found");
