@@ -25,29 +25,32 @@ public class CustomerService {
 return customerRepository.findCustomerByUser(user);
     }
      public void registration(CustomerDTO customerDTO){
-        User user=userRepository.findUserById(customerDTO.getId());
+        User user=new User();
         user.setRole("CUSTOMER");
         String hashPassword=new BCryptPasswordEncoder().encode(user.getPassword());//اشفر الباسوورد
         user.setPassword(hashPassword);
-        Customer customer=new Customer(null, customerDTO.getPhoneNumber(),customerDTO.getUsername(),customerDTO.getPassword(),customerDTO.getName(),customerDTO.getEmail(),customerDTO.getRole(),user,null);
-        customerRepository.save(customer);
+        user.setEmail(customerDTO.getEmail());
+        user.setName(customerDTO.getName());
+        user.setUsername(customerDTO.getUsername());
         userRepository.save(user);
+        Customer customer=new Customer(null, customerDTO.getPhoneNumber(),user,null);
+        customerRepository.save(customer);
+      
 }
-    public void update(Integer user_id,Integer customer_id,CustomerDTO customerDTO){
+    public void update(Integer user_id,CustomerDTO customerDTO){
         User user=userRepository.findUserById(user_id);
+
         Customer customer=customerRepository.findCustomerById(customer_id);
         if(user==null){
             throw new ApiException("user Not Found");
         }
-        if(customer==null){
-            throw new ApiException("customer Not Found");
-        }
-        if(customerDTO.getUser_id()!=user_id){
-            throw new ApiException("error");
-        }
-        customer.setPhoneNumber(customerDTO.getPhoneNumber());
-        Customer customer1=new Customer(null, customerDTO.getPhoneNumber(),user,null);
-        customerRepository.save(customer1);
+        user.setPassword(hashPassword);
+        user.setEmail(customerDTO.getEmail());
+        user.setName(customerDTO.getName());
+        user.setUsername(customerDTO.getUsername());
+        userRepository.save(user);
+        Customer customer=new Customer(null, customerDTO.getPhoneNumber(),user,null);
+        customerRepository.save(customer);
     }
     public void delete(Integer user_id,Integer customer_id){
 Customer customer=customerRepository.findCustomerById(customer_id);
