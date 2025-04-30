@@ -21,15 +21,14 @@ public class CustomerController {
         return ResponseEntity.status(200).body(customerService.getCustomer(user.getId()));
     }
    @PostMapping("/add")
-    public ResponseEntity registration( @RequestBody @Valid CustomerDTO  customerDTO ){
-        customerService.registration(customerDTO);
+    public ResponseEntity registration(@AuthenticationPrincipal User user, @RequestBody @Valid CustomerDTO  customerDTO ){
+        customerService.registration(user.getId(),customerDTO);
         return ResponseEntity.status(200).body(new ApiResponse("Success") );
     }
-    @PutMapping("/update/{customer_id}")
-public ResponseEntity update(@PathVariable Integer customer_id,@AuthenticationPrincipal User user,@RequestBody @Valid CustomerDTO customerDTO){
-        customerService.update(user.getId(),customer_id,customerDTO);
+   @PutMapping("/update")
+public ResponseEntity update(@AuthenticationPrincipal User user,@RequestBody @Valid CustomerDTO customerDTO){
+        customerService.update(user.getId(),customerDTO);
         return ResponseEntity.status(200).body(new ApiResponse("Success") );
-
     }
     @DeleteMapping("/delete/{customer_id}")
     public ResponseEntity delete(@AuthenticationPrincipal User user,@PathVariable Integer customer_id)
