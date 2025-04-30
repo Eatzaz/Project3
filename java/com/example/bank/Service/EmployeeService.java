@@ -24,32 +24,35 @@ public class EmployeeService {
         }
         return employeeRepository.findEmployeeByUser(user);
     }
-    public void registration(EmployeeDTO employeeDTO){
-         User user=userRepository.findUserById(employeeDTO.getId());
-       user.setRole("EMPLOYEE");
+   public void EmployeeService(EmployeeDTO employeeDTO){
+        User user=new User();
+        user.setRole("EMPLOYEE");
         String hashPassword=new BCryptPasswordEncoder().encode(user.getPassword());//اشفر الباسوورد
         user.setPassword(hashPassword);
-         Employee employee=new Employee(null,employeeDTO.getPosition(),employeeDTO.getSalary(),employeeDTO.getUsername(),employeeDTO.getPassword(),employeeDTO.getName(),employeeDTO.getEmail(),employeeDTO.getRole(),user);
-         employeeRepository.save(employee);
+        user.setEmail(employeeDTO.getEmail());
+        user.setName(employeeDTO.getName());
+        user.setUsername(employeeDTO.getUsername());
         userRepository.save(user);
+        Employee employee=new Employee(null,employeeDTO.getPosition(),employeeDTO.getSalary(),user);
+        employeeRepository.save(employee);
     }
-    public void update(Integer user_id, Integer employee_id, EmployeeDTO employeeDTO){
-        User user=userRepository.findUserById(user_id);
-        Employee employee=employeeRepository.findEmployeeById(employee_id);
-        if(user==null){
-            throw new ApiException("user Not Found");
-        }
-        if(employee==null){
-            throw new ApiException("employee Not Found");
-        }
-        if(employeeDTO.getUser_id()!=user_id){
-            throw new ApiException("error");
-        }
-        employee.setPosition(employeeDTO.getPosition());
-        employee.setSalary(employeeDTO.getSalary());
-        Employee employee1=new Employee(null,employeeDTO.getPosition(),employeeDTO.getSalary(),user);
-        employeeRepository.save(employee1);
+public void update(Integer user_id, EmployeeDTO employeeDTO){
+    User user=userRepository.findUserById(user_id);
+    Employee employee=user.getEmployee();
+    if(user==null){
+        throw new ApiException("user Not Found");
     }
+    if(employee==null){
+        throw new ApiException("employee Not Found");
+    }
+    user.setEmail(employeeDTO.getEmail());
+    user.setName(employeeDTO.getName());
+    user.setUsername(employeeDTO.getUsername());
+    userRepository.save(user);
+    Employee employee=new Employee(null,employeeDTO.getPosition(),employeeDTO.getSalary(),user);
+    employeeRepository.save(employee);
+
+}
     public void delete(Integer user_id,Integer employee_id){
         Employee employee=employeeRepository.findEmployeeById(employee_id);
         if(employee==null){
