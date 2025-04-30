@@ -20,14 +20,14 @@ public class EmployeeController {
     public ResponseEntity getEmployee(@AuthenticationPrincipal User user){
         return ResponseEntity.status(200).body(employeeService.getEmployee(user.getId()));
     }
-   @PostMapping("/add")
-    public ResponseEntity addEmployee( @RequestBody @Valid EmployeeDTO employeeDTO){
-        employeeService.registration(employeeDTO);
+    @PostMapping("/add")
+    public ResponseEntity addEmployee(@AuthenticationPrincipal User user, @RequestBody @Valid EmployeeDTO employeeDTO){
+        employeeService.registration(user.getId(),employeeDTO);
         return ResponseEntity.status(200).body(new ApiResponse("Success") );
     }
-    @PutMapping("/update/{employee_id}")
-    public ResponseEntity update(@PathVariable Integer employee_id,@AuthenticationPrincipal User user,@RequestBody @Valid EmployeeDTO employeeDTO){
-        employeeService.update(user.getId(),employee_id,employeeDTO);
+   @PutMapping("/update/{employee_id}")
+    public ResponseEntity update(@AuthenticationPrincipal User user,@RequestBody @Valid EmployeeDTO employeeDTO){
+        employeeService.update(user.getId()employeeDTO);
         return ResponseEntity.status(200).body(new ApiResponse("Success") );
 
     }
