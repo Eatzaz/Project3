@@ -25,7 +25,7 @@ public class EmployeeController {
         employeeService.registration(user.getId(),employeeDTO);
         return ResponseEntity.status(200).body(new ApiResponse("Success") );
     }
-   @PutMapping("/update/{employee_id}")
+   @PutMapping("/update")
     public ResponseEntity update(@AuthenticationPrincipal User user,@RequestBody @Valid EmployeeDTO employeeDTO){
         employeeService.update(user.getId()employeeDTO);
         return ResponseEntity.status(200).body(new ApiResponse("Success") );
